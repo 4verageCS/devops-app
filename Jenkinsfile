@@ -1,6 +1,12 @@
 pipeline {
     agent any
 
+    environment {
+        IMAGE_NAME = "devops-app"
+        IMAGE_TAG = "v1.${BUILD_NUMBER}"
+        CONTAINER_NAME = "devops-container"
+    }
+
     stages {
 
         stage('Clone') {
@@ -18,15 +24,15 @@ pipeline {
 
         stage('Docker Build') {
             steps {
-                sh 'docker build -t devops-app .'
+                sh 'docker build -t $IMAGE_NAME:$IMAGE_TAG .'
             }
         }
 
         stage('Run Container') {
             steps {
-                sh 'docker stop devops-container || true'
-                sh 'docker rm devops-container || true'
-                sh 'docker run -d -p 8086:8080 --name devops-container devops-app'
+                sh 'docker stop $CONTAINER_NAME || true'
+                sh 'docker rm $CONTAINER_NAME || true'
+                sh 'docker run -d -p 8086:8080 --name $CONTAINER_NAME $IMAGE_NAME:$IMAGE_TAG'
             }
         }
     }
