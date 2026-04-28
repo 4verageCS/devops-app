@@ -5,7 +5,7 @@ pipeline {
 
         stage('Clone') {
             steps {
-                git 'https://github.com/4verageCS/devops-app.git'
+                git branch: 'main', url: 'https://github.com/4verageCS/devops-app.git'
             }
         }
 
