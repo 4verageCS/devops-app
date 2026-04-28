@@ -12,7 +12,7 @@ public class HelloController {
     
     @GetMapping("/")
     public String home() {
-        return "Hello DevOps - Version 2";
+        return "Hello DevOps - Version 3";
     }
     
     @GetMapping("/health")
